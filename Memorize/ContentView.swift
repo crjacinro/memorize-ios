@@ -7,12 +7,18 @@
 
 import SwiftUI
 
+let vehiclesEmojis = ["🛻", "🚛","🚖","✈️","🚢","🚝","🚑","🚚","🚔","🛩",]
+let natureEmojis = ["🐻", "🦖","🍀","🌧","🐓","🦚","🌱","🦢","🌼","🌷",]
+let countryEmojis = ["🇻🇬", "🇨🇦","🇵🇭","🇧🇷","🇧🇬","🇨🇴","🇺🇳","🇦🇿","🇧🇩","🇸🇬",]
+
 struct ContentView: View {
-    var emojis = ["🛻", "🚛","🚖","✈️","🚢","🚝","🚑","🚚","🚔","🛩",]
-    @State var emojiCount = 5
+    @State var emojis: [String] = vehiclesEmojis
+    @State var emojiCount = Int.random(in: 8...vehiclesEmojis.count)
     
     var body: some View {
         VStack{
+            Text("Memorize!")
+                .font(.title)
             ScrollView{
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
                     ForEach(emojis[0..<emojiCount], id: \.self){ emoji in
@@ -24,34 +30,46 @@ struct ContentView: View {
             .foregroundColor(.red)
             Spacer()
             HStack{
-                removeBtn
                 Spacer()
-                addBtn
+                Button(action: {
+                    emojis = vehiclesEmojis.shuffled()
+                    emojiCount = Int.random(in: 8...vehiclesEmojis.count)
+                }, label: {
+                    VStack{
+                        Image(systemName: "car.fill")
+                        Text("Vehicles")
+                            .font(.footnote)
+                    }
+                })
+                .padding(.all)
+                Button(action: {
+                    emojis = natureEmojis.shuffled()
+                    emojiCount = Int.random(in: 8...vehiclesEmojis.count)
+                }, label: {
+                    VStack{
+                        Image(systemName: "leaf.fill")
+                        Text("Nature ")
+                            .font(.footnote)
+                    }
+                })
+                .padding(.all)
+                Button(action: {
+                    emojis = countryEmojis.shuffled()
+                    emojiCount = Int.random(in: 8...vehiclesEmojis.count)
+                }, label: {
+                    VStack{
+                        Image(systemName: "flag.fill")
+                        Text("Countries")
+                            .font(.footnote)
+                    }
+                })
+                .padding(.all)
+                Spacer()
             }
             .font(.largeTitle)
             .padding(.horizontal)
         }
         .padding(.horizontal)
-    }
-    
-    var removeBtn: some View{
-        Button {
-           if emojiCount > 1 {
-               emojiCount -= 1
-           }
-       } label: {
-           Image(systemName: "minus.circle").font(.largeTitle)
-       }
-    }
-    
-    var addBtn: some View {
-        Button{
-           if emojiCount < emojis.count {
-               emojiCount += 1
-           }
-       } label: {
-           Image(systemName: "plus.circle").font(.largeTitle)
-       }
     }
 }
 
