@@ -7,96 +7,47 @@
 
 import SwiftUI
 
-let vehiclesEmojis = ["🛻", "🚛","🚖","✈️","🚢","🚝","🚑","🚚","🚔","🛩",]
-let natureEmojis = ["🐻", "🦖","🍀","🌧","🐓","🦚","🌱","🦢","🌼","🌷",]
-let countryEmojis = ["🇻🇬", "🇨🇦","🇵🇭","🇧🇷","🇧🇬","🇨🇴","🇺🇳","🇦🇿","🇧🇩","🇸🇬",]
-
 struct ContentView: View {
-    @State var emojis: [String] = vehiclesEmojis
-    @State var emojiCount = Int.random(in: 8...vehiclesEmojis.count)
+    var viewModel: EmojiMemoryGameViewModel
     
     var body: some View {
-        VStack{
-            Text("Memorize!")
-                .font(.title)
-            ScrollView{
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                    ForEach(emojis[0..<emojiCount], id: \.self){ emoji in
-                        CardView(content: emoji)
-                            .aspectRatio(2/3, contentMode: .fit)
-                    }
+        ScrollView{
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
+                ForEach(viewModel.cards){ card in
+                    CardView(card: card)
+                        .aspectRatio(2/3, contentMode: .fit)
+                        .onTapGesture {
+                            viewModel.choose(card)
+                        }
                 }
             }
-            .foregroundColor(.red)
-            Spacer()
-            HStack{
-                Spacer()
-                Button(action: {
-                    emojis = vehiclesEmojis.shuffled()
-                    emojiCount = Int.random(in: 8...vehiclesEmojis.count)
-                }, label: {
-                    VStack{
-                        Image(systemName: "car.fill")
-                        Text("Vehicles")
-                            .font(.footnote)
-                    }
-                })
-                .padding(.all)
-                Button(action: {
-                    emojis = natureEmojis.shuffled()
-                    emojiCount = Int.random(in: 8...vehiclesEmojis.count)
-                }, label: {
-                    VStack{
-                        Image(systemName: "leaf.fill")
-                        Text("Nature ")
-                            .font(.footnote)
-                    }
-                })
-                .padding(.all)
-                Button(action: {
-                    emojis = countryEmojis.shuffled()
-                    emojiCount = Int.random(in: 8...vehiclesEmojis.count)
-                }, label: {
-                    VStack{
-                        Image(systemName: "flag.fill")
-                        Text("Countries")
-                            .font(.footnote)
-                    }
-                })
-                .padding(.all)
-                Spacer()
-            }
-            .font(.largeTitle)
-            .padding(.horizontal)
         }
+        .foregroundColor(.red)
         .padding(.horizontal)
     }
 }
 
 struct CardView: View {
-    var content = ""
-    @State var isFaceUp = true
+    let card: MemoryGameModel<String>.Card
     
     var body: some View {
         ZStack {
             let cardShape = RoundedRectangle(cornerRadius: 20)
-            if isFaceUp {
+            if card.isFaceUp {
                 cardShape.fill().foregroundColor(.white)
                 cardShape.strokeBorder(lineWidth: 3)
-                Text(content).font(.largeTitle)
+                Text(card.content).font(.largeTitle)
             }else{
                 RoundedRectangle(cornerRadius: 20)
                     .fill()
             }
         }
-        .onTapGesture {
-            isFaceUp = !isFaceUp
-        }
     }
 }
 
+let game = EmojiMemoryGameViewModel()
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: game)
     }
 }

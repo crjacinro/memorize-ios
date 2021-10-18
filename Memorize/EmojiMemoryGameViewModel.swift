@@ -7,6 +7,13 @@
 
 import Foundation
 
+let vehiclesEmojis = ["🛻", "🚛","🚖","✈️","🚢","🚝","🚑","🚚","🚔","🛩",]
+let natureEmojis = ["🐻", "🦖","🍀","🌧","🐓","🦚","🌱","🦢","🌼","🌷",]
+let countryEmojis = ["🇻🇬", "🇨🇦","🇵🇭","🇧🇷","🇧🇬","🇨🇴","🇺🇳","🇦🇿","🇧🇩","🇸🇬",]
+
+var emojis: [String] = vehiclesEmojis
+var emojiCount = Int.random(in: 8...vehiclesEmojis.count)
+
 class EmojiMemoryGameViewModel{
     
     static let vehiclesEmojis = ["🛻", "🚛","🚖","✈️","🚢","🚝","🚑","🚚","🚔","🛩",]
@@ -17,5 +24,9 @@ class EmojiMemoryGameViewModel{
     
     var cards: Array<MemoryGameModel<String>.Card> {
         return model.cards
+    }
+    
+    func choose(_ card: MemoryGameModel<String>.Card){
+        model.choose(card)
     }
 }
