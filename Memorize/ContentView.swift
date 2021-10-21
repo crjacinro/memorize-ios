@@ -26,9 +26,15 @@ struct ContentView: View {
                 }
             }
             .padding()
-            Button("New Game", action: {
-                viewModel.startNewGame()
-            }).font(.title)
+            HStack {
+                Button("New Game", action: {
+                    viewModel.startNewGame()
+                }).font(.title).padding()
+                Spacer()
+                Text("Score: \(viewModel.score)")
+                    .font(.subheadline)
+                    .padding()
+            }
         }
     }
 }

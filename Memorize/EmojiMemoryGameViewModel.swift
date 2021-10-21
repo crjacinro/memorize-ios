@@ -39,11 +39,11 @@ class EmojiMemoryGameViewModel: ObservableObject {
     @Published private var model: MemoryGameModel<String>
     @Published private var theme: Theme
     
-    var cards: Array<MemoryGameModel<String>.Card> {
-        return model.cards
-    }
+    var cards: Array<MemoryGameModel<String>.Card> { model.cards }
     
-    var themeName: String { return theme.name }
+    var score: Int { model.score }
+    
+    var themeName: String { theme.name }
     
     var themeColor: Color {
         let themeColor = theme.color
