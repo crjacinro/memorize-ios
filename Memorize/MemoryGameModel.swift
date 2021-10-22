@@ -65,16 +65,16 @@ struct MemoryGameModel<CardContent> where CardContent: Equatable {
         var isFaceUp: Bool = false
         var isMatched: Bool = false
         var isSeen: Bool = false
-        var content: CardContent
-        var id: Int
+        let content: CardContent
+        let id: Int
     }
 }
 
 struct Theme: Identifiable {
-    var id: Int = Int.random(in: 0...999)
-    var name: String
+    let id: Int = Int.random(in: 0...999)
+    let name: String
     var cards: [String]
-    var color: ThemeColor
+    let color: ThemeColor
 }
 
 enum ThemeColor {
