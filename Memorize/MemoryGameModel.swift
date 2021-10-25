@@ -49,7 +49,7 @@ struct MemoryGameModel<CardContent> where CardContent: Equatable {
     }
     
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent){
-        self.cards = Array<Card>()
+        self.cards = []
       
         for pairIndex in 0..<numberOfPairsOfCards {
             let content = createCardContent(pairIndex)
@@ -62,16 +62,16 @@ struct MemoryGameModel<CardContent> where CardContent: Equatable {
     }
       
     struct Card : Identifiable {
-        var isFaceUp: Bool = false
-        var isMatched: Bool = false
-        var isSeen: Bool = false
+        var isFaceUp = false
+        var isMatched = false
+        var isSeen = false
         let content: CardContent
         let id: Int
     }
 }
 
 struct Theme: Identifiable {
-    let id: Int = Int.random(in: 0...999)
+    let id = Int.random(in: 0...999)
     let name: String
     var cards: [String]
     let color: ThemeColor

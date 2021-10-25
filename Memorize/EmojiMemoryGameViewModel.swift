@@ -35,11 +35,15 @@ private func createMemoryGame(_ theme: Theme) -> MemoryGameModel<String> {
 }
 
 
+
+
 class EmojiMemoryGameViewModel: ObservableObject {
     @Published private var model: MemoryGameModel<String>
     @Published private var theme: Theme
     
-    var cards: Array<MemoryGameModel<String>.Card> { model.cards }
+    typealias Card = MemoryGameModel<String>.Card
+    
+    var cards: [Card] { model.cards }
     
     var score: Int { model.score }
     
@@ -67,7 +71,7 @@ class EmojiMemoryGameViewModel: ObservableObject {
     
     // MARK: - Intent(s)
     
-    func choose(_ card: MemoryGameModel<String>.Card){
+    func choose(_ card: Card){
         model.choose(card)
     }
     

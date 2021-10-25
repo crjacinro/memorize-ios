@@ -40,7 +40,7 @@ struct EmojiMemoryGameView: View {
 }
 
 struct CardView: View {
-    let card: MemoryGameModel<String>.Card
+    let card: EmojiMemoryGameViewModel.Card
     
     var body: some View {
         ZStack {
